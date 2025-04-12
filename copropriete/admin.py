@@ -9,7 +9,7 @@ class CoproprieteAdmin(admin.ModelAdmin):
     search_fields = ('nom', 'adresse', 'ville')
     list_filter = ('ville',)
 
-    actions = ['generer_factures_action']
+    actions = ['generer_factures_mois_en_cours']
 
     def get_readonly_fields(self, request, obj=None):
         """
@@ -33,11 +33,11 @@ class CoproprieteAdmin(admin.ModelAdmin):
                 return False
         return super().has_change_permission(request, obj)
 
-    def generer_factures_action(self, request, queryset):
+    def generer_factures_mois_en_cours(self, request, queryset):
         for copropriete in queryset:
             copropriete.generer_factures()
         self.message_user(request, "Factures générées avec succès.")
-    generer_factures_action.short_description = "Générer des factures pour les lots"
+    generer_factures_mois_en_cours.short_description = "Générer des factures pour les lots"
 
 @admin.register(Immeuble)
 class ImmeubleAdmin(admin.ModelAdmin):
