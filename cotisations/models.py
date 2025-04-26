@@ -14,6 +14,7 @@ class FactureClt(models.Model):
     reste_a_lettrer = models.DecimalField(max_digits=10, decimal_places=2)
     date_facture = models.DateField()
     lot = models.ForeignKey('copropriete.Lot', on_delete=models.CASCADE)
+    est_validee = models.BooleanField(default=False)  # Facture validée ?
     est_lettree = models.BooleanField(default=False)  # Facture verrouillée ?
 
     def __str__(self):
@@ -31,6 +32,7 @@ class Paiement(models.Model):
 
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_paiement = models.DateField(auto_now_add=True)
+    est_validee = models.BooleanField(default=False)  # Paiement validée ?
     montant_restant = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def clean(self):
